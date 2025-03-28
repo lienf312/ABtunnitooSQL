@@ -11,6 +11,10 @@ create database Tarpv24
 --?
 DRop DataBASE Tarpv24
 
+--tabeli gender loomine
+  
+use Tarpv24
+
 --?
 create table Gender
 (
