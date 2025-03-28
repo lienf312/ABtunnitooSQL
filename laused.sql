@@ -1,4 +1,4 @@
---1. Käivita iga lause SQL Serveris
+--1. Käivita iga lause SQL Serveris !
 --2. Kommenteeri neid antud failis
 --3. Tee uus branch iga SQL lausete teemade kohta
 --3a. Tee Git commit iga SQL lause kohta.
@@ -8,10 +8,10 @@
 -- db loomine
 create database Tarpv24
 
---?
+-- db kustutamine
 DRop DataBASE Tarpv24
 
---?
+-- tabeli loomine
 create table Gender
 (
 Id int NOT NULL primary key,
@@ -32,11 +32,11 @@ values (1, 'Female')
 insert into Gender (Id, Gender)
 values (2, 'Male')
 
---- ?
+--- lisavõtme lisamine
 alter table Person add constraint tblPerson_GenderId_FK
 foreign key (GenderId) references Gender(Id)
 
--- ?
+-- lisa andmed
 insert into Person (Id, Name, Email, GenderId)
 values (1, 'Supermees', 's@s.com', 2)
 insert into Person (Id, Name, Email, GenderId)
@@ -55,11 +55,11 @@ values (7, 'Spiderman', 'spider@spiderman.com', 2)
 -- vaatame tabeli andmeid
 select * from Person
 
---- ?
+--- kustutamine lisavõti
 alter table Person
 drop constraint tblPerson_GenderId_FK
 
--- ?
+-- lisa andmed
 insert into Gender (Id, Gender)
 values (3, 'Unknown')
 -- lisame võõrvõtme uuesti
@@ -69,12 +69,11 @@ default 3 for GenderId
 
 
 select * from Person
-select * from Gender
 
 insert into Person (Id, Name, Email)
 values (8, 'Test', 'Test')
 
----?
+--- lisage veerg
 alter table Person
 add Age nvarchar(10)
 
@@ -83,14 +82,14 @@ update Person
 set Age = 149
 where Id = 8
 
---?
+-- lisage esmane võti
 alter table Person
 add constraint CK_Person_Age check (Age > 0 and Age < 150)
 
 insert into Person (Id, Name, Email, GenderId, Age)
 values (9, 'Test', 'Test', 2, 160)
 
---?
+-- kustuta kus id = 8
 select * from Person
 go
 delete from Person where Id = 8
@@ -101,7 +100,7 @@ select * from Person
 alter table Person
 add City nvarchar(25)
 
--- ?
+-- vali inimene gotham
 select * from Person where City = 'Gotham'
 
 
@@ -109,17 +108,17 @@ select * from Person where City = 'Gotham'
 select * from Person where City <> 'Gotham'
 select * from Person where City != 'Gotham'
 
--- ?
+-- vali inimene, kelle vanus on 100, 50, 20
 select *from Person where Age = 100 or 
 Age = 50 or Age = 20
 select * from Person where Age in (100, 50, 20)
 
 
---- ?
+---vali inimene, kelle linn algab n-ga linn algab n
 select * from Person where City like 'n%'
 select * from Person where Email like '%@%'
 
--- ?
+-- vali inimene, kelle email ei oma @
 select * from Person where Email not like '%@%'
 
 --- näitab, kelle on emailis ees ja peale @-märki
@@ -128,18 +127,18 @@ select * from Person where Email like '_@_.com'
 
 --?
 select * from Person where Name like '[^WAS]%'
---- ?
+--- valige inimene, kelle linn on new york või gotham ja vanus on alla 40 või sellega võrdne
 select * from Person where (City = 'Gotham' or City = 'New York')
 and Age >= 40
 
 ---võtab kolm esimest rida
 select top 3 * from Person
 
---- ?
+--- vali esimesed 3 inimest
 select * from Person
 select top 3 Age, Name from Person
 
---- ?
+--- vali esimesed 50 protsendid inimest
 select top 50 percent * from Person
 --?
 select * from Person order by cast(Age as int)
